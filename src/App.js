@@ -1,45 +1,29 @@
-import './App.css'
+import React from 'react'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import ReduxThunk from 'redux-thunk'
 
-import styled, { createGlobalStyle } from 'styled-components'
+import { GlobalStyle, AppContainer } from './StyledApp'
 import SideBar from './components/SideBar/SideBar'
 import Header from './components/Header/Header'
 import MainContent from './components/MainContent/MainContent'
+import dataReducer from './store/reducers/data'
 
-const GlobalStyle = createGlobalStyle`
-  * {
-      margin:0;
-      padding:0;
-    }
-  
-  *,*::before, *::after {
-    box-sizing: inherit
-  }
-  html {
-    font-family: 'Roboto', sans-serif;
-    font-size: 62.5%;
-    box-sizing: border-box;
-  }
-`
+const rootReducer = combineReducers({
+  data: dataReducer,
+})
 
-const AppContainer = styled.div`
-  display: grid;
-  grid-template-rows: 4rem 1fr;
-  grid-template-columns: 4rem 1fr;
-  grid-template-areas:
-    'sidebar header'
-    'sidebar main';
-  min-height: 100vh;
-  color: #fff;
-`
-
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
 function App() {
   return (
-    <AppContainer>
-      <GlobalStyle />
-      <Header />
-      <SideBar />
-      <MainContent />
-    </AppContainer>
+    <Provider store={store}>
+      <AppContainer>
+        <GlobalStyle />
+        <Header />
+        <SideBar />
+        <MainContent />
+      </AppContainer>
+    </Provider>
   )
 }
 

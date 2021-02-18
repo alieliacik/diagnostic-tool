@@ -150,7 +150,8 @@ const MainContent = () => {
       setError(error.message)
     }
     setIsLoading(false)
-  }, [isLoading, error])
+  }, [setIsLoading, setError])
+
   useEffect(() => {
     fetchDataHandler()
   }, [fetchDataHandler])

@@ -1,5 +1,6 @@
 export const FETCH_DATA = 'FETCH_DATA'
 export const SELECT_CARD = 'SELECT_CARD'
+export const FILTER_CHART_DATA = 'FILTER_CHART_DATA'
 
 export const fetchData = () => {
   return async (dispatch) => {
@@ -34,5 +35,12 @@ export const selectCard = (name) => {
   return {
     type: SELECT_CARD,
     dataTitle: name,
+  }
+}
+
+export const filterChartData = (buttonName) => {
+  return {
+    type: FILTER_CHART_DATA,
+    buttonName: buttonName,
   }
 }

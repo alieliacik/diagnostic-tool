@@ -9,7 +9,7 @@ import {
 
 import * as dataActions from '../../store/actions/data'
 import Card from '../StyledComponents/Card'
-
+import Chart from './Chart'
 const MainContentContainer = styled.main`
   grid-area: main;
   background-color: #fff;
@@ -109,12 +109,13 @@ const Button = styled.button`
   cursor: pointer;
   transition: all 0.2s;
   backface-visibility: hidden;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3);
-
+  box-shadow: ${({ isSelected }) =>
+    isSelected
+      ? '0 3px 6px 0 rgba(0, 0, 0, 0.3)'
+      : ' 0 1.5px 3px 0 rgba(0, 0, 0, 0.3)'};
   &:hover {
-    transform: translateY(-2px);
+    transform: ${({ isSelected }) => !isSelected && 'translateY(-2px)'};
   }
-
   &:active {
     transform: translateY(0);
     box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.3);
@@ -125,6 +126,8 @@ const Button = styled.button`
   &:disabled {
     background-color: #c0dcf1;
     transform: none;
+    box-shadow: none;
+    cursor: not-allowed;
   }
 `
 const CardsContainer = styled.div`
@@ -141,25 +144,9 @@ const MainContent = () => {
   const [isLoading, setIsLoading] = useState()
   const [error, setError] = useState()
   const gaugeData = useSelector((state) => state.data.gaugeData)
-  const areaData = useSelector((state) => state.data.areaData)
   const dataTitle = useSelector((state) => state.data.dataTitle)
-  const [allButtons, setAllButtons] = useState([
-    { id: 1, name: 'Day', isDisabled: true, isSelected: false },
-    { id: 2, name: 'Week', isDisabled: false, isSelected: false },
-    { id: 3, name: 'Month', isDisabled: false, isSelected: true },
-    { id: 4, name: 'Quarter', isDisabled: false, isSelected: false },
-    { id: 5, name: 'Half', isDisabled: false, isSelected: false },
-    { id: 6, name: 'Year', isDisabled: false, isSelected: false },
-  ])
+  const allFilterButtons = useSelector((state) => state.data.allFilterButtons)
 
-  const buttonSelectHandler = (id) => {
-    const modifiedAllButtons = allButtons.map((btn) =>
-      id === btn.id
-        ? { ...btn, isSelected: true }
-        : { ...btn, isSelected: false }
-    )
-    setAllButtons(modifiedAllButtons)
-  }
   const fetchDataHandler = useCallback(async () => {
     setError(null)
     setIsLoading(true)
@@ -185,8 +172,6 @@ const MainContent = () => {
     return <h1>Loading</h1>
   }
 
-  const filteredAreaData = areaData.filter((item) => item.name === dataTitle)
-  console.log(filteredAreaData)
   return (
     <MainContentContainer>
       <Container>
@@ -223,10 +208,12 @@ const MainContent = () => {
               {dataTitle.toUpperCase()} TREND
             </ButtonsTitle>
             <Buttons>
-              {allButtons.map((btn) => (
+              {allFilterButtons.map((btn) => (
                 <Button
                   key={btn.id}
-                  onClick={() => buttonSelectHandler(btn.id)}
+                  onClick={() =>
+                    dispatch(dataActions.filterChartData(btn.name))
+                  }
                   disabled={btn.isDisabled}
                   isSelected={btn.isSelected}
                 >
@@ -248,13 +235,7 @@ const MainContent = () => {
               ))}
           </CardsContainer>
           <ChartContainer key={dataTitle}>
-            {!!filteredAreaData.length &&
-              filteredAreaData[0].data.map((e) => (
-                <p>
-                  {e.score}
-                  {e.date}
-                </p>
-              ))}
+            <Chart />
           </ChartContainer>
         </ContentContainer>
       </Container>

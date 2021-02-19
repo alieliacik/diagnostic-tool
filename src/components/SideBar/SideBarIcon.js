@@ -5,6 +5,7 @@ const SideBarIcon = (props) => {
   const Icon = props.icon.name
   return (
     <IconContainer
+      // tabSelectHandler is a props which sends id to parent component.
       onClick={() => props.tabSelectHandler(props.icon.id)}
       isSelected={props.icon.isSelected}
     >
@@ -22,7 +23,10 @@ const IconContainer = styled.div`
   width: '100%';
   padding: 1rem 0;
   border-top: 1px solid #002d55;
+
+  /* background-color is changing dynamically if it is selected */
   background-color: ${({ isSelected }) => isSelected && '#002d55'};
+
   transition: all 0.3s;
   cursor: pointer;
 

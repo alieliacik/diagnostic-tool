@@ -20,6 +20,7 @@ const Header = () => {
       <Logo>Diagnostic Tool</Logo>
       <HeaderIcons>
         <UserInfo>Logged in as General User</UserInfo>
+        {/* Creating just one IconContainer like I did in 'Sidebar' container is another solution here. */}
         <IconContainer>
           <RiListSettingsFill size={18} />
         </IconContainer>

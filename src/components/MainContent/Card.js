@@ -71,7 +71,7 @@ const CardContainer = styled.div`
   align-self: flex-start;
   width: 10rem;
   margin-right: 2rem;
-  height: 18rem;
+  height: 16rem;
   padding: 2rem 1.2rem;
   border: 1px solid #ececec;
   border-radius: 8px;

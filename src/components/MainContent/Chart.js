@@ -31,7 +31,8 @@ const Chart = (props) => {
         {
           label: ' Score',
           lineTension: 0.4,
-          radius: windowWidth / 180 > 8 ? 8 : windowWidth / 180,
+          pointRadius: windowWidth / 180 > 8 ? 8 : windowWidth / 180,
+          pointHoverRadius: windowWidth / 180 > 8 ? 8 : windowWidth / 180,
           borderColor: '#0071C5',
           backgroundColor: gradient,
           pointBackgroundColor: '#0071C5',

@@ -9,6 +9,8 @@ export const MainContentContainer = styled.main`
   align-items: center;
   align-items: center;
 `
+
+// Container behaves differently according to its props.
 export const Container = styled.div`
   max-width: 100rem;
   width: 100%;
@@ -39,6 +41,8 @@ export const SubtitleText = styled.h3`
 export const SubtitleIconContainer = styled.div`
   margin-left: auto;
 `
+
+// Decided to use grid here. Beter solution here in my oppinion.
 export const ContentContainer = styled.div`
   display: grid;
   grid-template-columns: 4.5fr 5.5fr;
@@ -82,6 +86,7 @@ export const Filter = styled.div`
 export const FilterBox = styled.div`
   width: 1rem;
   height: 1rem;
+  /* Different background-color for two different FilterBox. */
   background-color: ${({ backgroundColor }) => backgroundColor};
 `
 export const FilterText = styled.p`
@@ -101,6 +106,7 @@ export const FilterButtonsContainer = styled.div`
 export const ButtonsTitle = styled.h3`
   font-size: 1.8rem;
   font-weight: 300;
+  /* keyframes with styled-components. */
   animation: ${OpacityAnimation} 2s;
   margin-bottom: 2rem;
 `
@@ -109,6 +115,7 @@ export const Buttons = styled.div`
 `
 export const Button = styled.button`
   padding: 0 1rem;
+  /* If the button is selected background color is different. */
   background-color: ${({ isSelected }) => (isSelected ? '#06426F' : '#0071c5')};
   border: none;
   height: 2.9rem;
@@ -118,13 +125,18 @@ export const Button = styled.button`
   cursor: pointer;
   transition: all 0.2s;
   backface-visibility: hidden;
+
+  /* Smaller box-shadow and no transform gives user a beter experience. */
   box-shadow: ${({ isSelected }) =>
     isSelected
       ? '0 3px 6px 0 rgba(0, 0, 0, 0.3)'
       : ' 0 1.5px 3px 0 rgba(0, 0, 0, 0.3)'};
+
+  /* Hover animation works if only the button is unselected. */
   &:hover {
     transform: ${({ isSelected }) => !isSelected && 'translateY(-2px)'};
   }
+
   &:active {
     transform: translateY(0);
     box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.3);
@@ -132,6 +144,8 @@ export const Button = styled.button`
   &:focus {
     outline: none;
   }
+
+  /* Some buttons are :disabled. */
   &:disabled {
     background-color: #c0dcf1;
     transform: none;

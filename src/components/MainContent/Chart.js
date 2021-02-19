@@ -11,6 +11,7 @@ const Chart = (props) => {
   const dataTitle = useSelector((state) => state.data.dataTitle)
   const filteredAreaData = areaData.filter((item) => item.name === dataTitle)
   const slice = useSelector((state) => state.data.slice)
+  const [windowWidth, setWindowWith] = useState(window.innerWidth)
 
   useEffect(() => {
     let data = []
@@ -30,17 +31,24 @@ const Chart = (props) => {
         {
           label: ' Score',
           lineTension: 0.4,
-          radius: 8,
+          radius: windowWidth / 180 > 8 ? 8 : windowWidth / 180,
           borderColor: '#0071C5',
           backgroundColor: gradient,
           pointBackgroundColor: '#0071C5',
           pointBorderColor: '#fff',
-          borderWidth: 3,
+          borderWidth: windowWidth / 530 > 3 ? 3 : windowWidth / 530,
           data: data,
         },
       ],
     })
-  }, [slice])
+
+    const handleResize = () => {
+      setWindowWith(window.innerWidth)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [slice, windowWidth])
 
   return (
     <ChartContainer>

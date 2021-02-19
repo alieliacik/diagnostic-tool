@@ -13,7 +13,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
     font-size: 62.5%;
-    @media (max-width: 1080px){
+    @media (max-width: 67.5em){
       font-size: 55%;         
     }
   }

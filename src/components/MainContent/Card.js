@@ -8,11 +8,7 @@ import {
 import 'react-circular-progressbar/dist/styles.css'
 
 import * as dataActions from '../../store/actions/data'
-
-const opacityAnimation = keyframes`
-  from {opacity: 0}
-  to {opacity: 1}
-`
+import { OpacityAnimation } from '../StyledComponents/OpacityAnimation'
 
 const Card = (props) => {
   const dispatch = useDispatch()
@@ -71,8 +67,9 @@ const CardContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 12rem;
-  margin-right: 5%;
+  align-self: flex-start;
+  width: 10rem;
+  margin-right: 2rem;
   height: 18rem;
   padding: 2rem 1.2rem;
   border: 1px solid #ececec;
@@ -87,7 +84,7 @@ const CardContainer = styled.div`
     background-color: #f2fafe;
     box-shadow: inset 0 3px 7px 0 rgba(0, 0, 0, 0.1);
   }
-  animation: ${opacityAnimation} 2s;
+  animation: ${OpacityAnimation} 2s;
 `
 const CardTitle = styled.h3`
   font-weight: 500;

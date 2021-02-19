@@ -10,6 +10,7 @@ import {
 import * as dataActions from '../../store/actions/data'
 import Card from './Card'
 import Chart from './Chart'
+import { OpacityAnimation } from '../StyledComponents/OpacityAnimation'
 const MainContentContainer = styled.main`
   grid-area: main;
   background-color: #fff;
@@ -20,10 +21,15 @@ const MainContentContainer = styled.main`
 `
 const Container = styled.div`
   max-width: 100rem;
+  width: 100%;
   margin: 0 auto;
   display: ${({ display }) => display};
   align-items: ${({ alignItems }) => alignItems};
   padding: ${({ padding }) => padding};
+
+  @media (max-width: 60em) {
+    width: 95%;
+  }
 `
 const Title = styled.h1`
   font-weight: 300;
@@ -52,6 +58,17 @@ const ContentContainer = styled.div`
     'filter buttons'
     'cards chart';
   width: 100%;
+
+  @media (max-width: 60em) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: 2rem;
+    grid-template-areas:
+      'filter'
+      'cards'
+      'buttons'
+      'chart';
+  }
 `
 const FiltersContainer = styled.div`
   max-width: 40%;
@@ -85,15 +102,17 @@ const FilterButtonsContainer = styled.div`
   grid-area: buttons;
   display: flex;
   justify-content: space-between;
-`
-const opacityAnimation = keyframes`
-  from {opacity: 0}
-  to {opacity: 1}
+
+  @media (max-width: 60em) {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 `
 const ButtonsTitle = styled.h3`
   font-size: 1.8rem;
   font-weight: 300;
-  animation: ${opacityAnimation} 2s;
+  animation: ${OpacityAnimation} 2s;
+  margin-bottom: 2rem;
 `
 const Buttons = styled.div`
   display: flex;
@@ -137,7 +156,7 @@ const CardsContainer = styled.div`
 `
 const ChartContainer = styled.div`
   grid-area: chart;
-  animation: ${opacityAnimation} 2s;
+  animation: ${OpacityAnimation} 2s;
 `
 const MainContent = () => {
   const dispatch = useDispatch()

@@ -22,12 +22,12 @@ const Card = (props) => {
   }
 
   useEffect(() => {
-    if (score < props.score) {
+    if (score < props.item.score) {
       scoreIntervalRef.current = setInterval(() => {
         setScore((prevState) => prevState + 1)
       }, 25)
     }
-    if (sample < props.sample) {
+    if (sample < props.item.sample) {
       sampleIntervalRef.current = setInterval(() => {
         setSample((prevState) => prevState + 1)
       }, 25)
@@ -36,14 +36,14 @@ const Card = (props) => {
       clearInterval(scoreIntervalRef.current)
       clearInterval(sampleIntervalRef.current)
     }
-  }, [props.sample, props.score, score, sample])
+  }, [props.item.sample, props.item.score, score, sample])
 
   return (
     <CardContainer
       isSelected={props.isSelected}
-      onClick={() => selectCardHandler(props.name)}
+      onClick={() => selectCardHandler(props.item.name)}
     >
-      <CardTitle>{props.name}</CardTitle>
+      <CardTitle>{props.item.name}</CardTitle>
       <CircularProgressbarWithChildren
         styles={buildStyles({
           pathColor: props.isSelected ? '#00AEEF' : '#0071C5',
@@ -54,6 +54,7 @@ const Card = (props) => {
         <ProgressBarText isSelected={props.isSelected}>
           {score}%
         </ProgressBarText>
+        <NA>{props.item.vsly ? `vsly: ${props.item.vsly}` : 'N/A'}</NA>
       </CircularProgressbarWithChildren>
       <SampleText>Sample: {sample}</SampleText>
     </CardContainer>
@@ -92,9 +93,14 @@ const CardTitle = styled.h3`
   margin-bottom: 1rem;
 `
 const ProgressBarText = styled.p`
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: ${({ isSelected }) => (isSelected ? '#00AEEF' : '#0071C5')};
 `
 const SampleText = styled.p`
   margin-top: 1rem;
+`
+
+const NA = styled.p`
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
 `

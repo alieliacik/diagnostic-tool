@@ -1,163 +1,35 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import styled, { keyframes } from 'styled-components'
 import {
   AiOutlineGlobal,
   AiFillInfoCircle,
   AiFillPushpin,
 } from 'react-icons/ai'
-
+import {
+  MainContentContainer,
+  Container,
+  Title,
+  SubTitle,
+  SubtitleText,
+  SubtitleIconContainer,
+  ContentContainer,
+  FiltersContainer,
+  FilterButtonsContainer,
+  FiltersText,
+  FiltersBox,
+  Filter,
+  FilterBox,
+  FilterText,
+  ButtonsTitle,
+  Button,
+  Buttons,
+  CardsContainer,
+  ChartContainer,
+} from './StyledMainContent'
 import * as dataActions from '../../store/actions/data'
 import Card from './Card'
 import Chart from './Chart'
-import { OpacityAnimation } from '../StyledComponents/OpacityAnimation'
-const MainContentContainer = styled.main`
-  grid-area: main;
-  background-color: #fff;
-  color: black;
-  min-height: 100vh;
-  align-items: center;
-  align-items: center;
-`
-const Container = styled.div`
-  max-width: 100rem;
-  width: 100%;
-  margin: 0 auto;
-  display: ${({ display }) => display};
-  align-items: ${({ alignItems }) => alignItems};
-  padding: ${({ padding }) => padding};
 
-  @media (max-width: 60em) {
-    width: 95%;
-  }
-`
-const Title = styled.h1`
-  font-weight: 300;
-  margin: 2rem 0 1rem 0;
-  color: #9c5455;
-`
-const SubTitle = styled.div`
-  display: flex;
-  background-color: #ececec;
-  padding: 0.8rem 0;
-`
-const SubtitleText = styled.h3`
-  font-weight: 300;
-  font-size: 2rem;
-  margin-left: 1rem;
-`
-const SubtitleIconContainer = styled.div`
-  margin-left: auto;
-`
-const ContentContainer = styled.div`
-  display: grid;
-  grid-template-columns: 4.5fr 5.5fr;
-  grid-template-rows: 1fr 4fr;
-  grid-gap: 2rem;
-  grid-template-areas:
-    'filter buttons'
-    'cards chart';
-  width: 100%;
-
-  @media (max-width: 60em) {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    grid-gap: 2rem;
-    grid-template-areas:
-      'filter'
-      'cards'
-      'buttons'
-      'chart';
-  }
-`
-const FiltersContainer = styled.div`
-  max-width: 40%;
-  grid-area: filter;
-`
-const FiltersText = styled.p`
-  font-weight: 500;
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
-`
-const FiltersBox = styled.div`
-  border-radius: 8px;
-  border: 1px solid #ececec;
-  padding: 1rem;
-  min-width: 22rem;
-`
-const Filter = styled.div`
-  display: flex;
-  align-items: center;
-`
-const FilterBox = styled.div`
-  width: 1rem;
-  height: 1rem;
-  background-color: ${({ backgroundColor }) => backgroundColor};
-`
-const FilterText = styled.p`
-  margin: 7px 5px;
-  font-size: 1.2rem;
-`
-const FilterButtonsContainer = styled.div`
-  grid-area: buttons;
-  display: flex;
-  justify-content: space-between;
-
-  @media (max-width: 60em) {
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-`
-const ButtonsTitle = styled.h3`
-  font-size: 1.8rem;
-  font-weight: 300;
-  animation: ${OpacityAnimation} 2s;
-  margin-bottom: 2rem;
-`
-const Buttons = styled.div`
-  display: flex;
-`
-const Button = styled.button`
-  padding: 0 1rem;
-  background-color: ${({ isSelected }) => (isSelected ? '#06426F' : '#0071c5')};
-  border: none;
-  height: 2.9rem;
-  color: #fff;
-  border-radius: 4px;
-  margin: 0 2px;
-  cursor: pointer;
-  transition: all 0.2s;
-  backface-visibility: hidden;
-  box-shadow: ${({ isSelected }) =>
-    isSelected
-      ? '0 3px 6px 0 rgba(0, 0, 0, 0.3)'
-      : ' 0 1.5px 3px 0 rgba(0, 0, 0, 0.3)'};
-  &:hover {
-    transform: ${({ isSelected }) => !isSelected && 'translateY(-2px)'};
-  }
-  &:active {
-    transform: translateY(0);
-    box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.3);
-  }
-  &:focus {
-    outline: none;
-  }
-  &:disabled {
-    background-color: #c0dcf1;
-    transform: none;
-    box-shadow: none;
-    cursor: not-allowed;
-  }
-`
-const CardsContainer = styled.div`
-  grid-area: cards;
-  display: flex;
-  flex-wrap: wrap;
-`
-const ChartContainer = styled.div`
-  grid-area: chart;
-  animation: ${OpacityAnimation} 2s;
-`
 const MainContent = () => {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState()
@@ -246,9 +118,7 @@ const MainContent = () => {
               gaugeData.map((item) => (
                 <Card
                   key={item.name}
-                  name={item.name}
-                  score={item.score}
-                  sample={item.sample}
+                  item={item}
                   isSelected={item.isSelected}
                 />
               ))}

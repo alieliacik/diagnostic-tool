@@ -9,11 +9,13 @@ const Chart = (props) => {
   const [chartState, setChartState] = useState({})
   const areaData = useSelector((state) => state.data.areaData)
   const dataTitle = useSelector((state) => state.data.dataTitle)
+  // Filters selected data.
   const filteredAreaData = areaData.filter((item) => item.name === dataTitle)
   const slice = useSelector((state) => state.data.slice)
   const [windowWidth, setWindowWith] = useState(window.innerWidth)
 
   useEffect(() => {
+    // Filtering the data according to user selection.
     let data = []
     let labels = []
     if (filteredAreaData.length > 0) {
@@ -21,6 +23,7 @@ const Chart = (props) => {
       labels = filteredAreaData[0].data.map((dt) => dt.date).slice(slice)
     }
 
+    // Needed to use this for linear gradient background.
     const ctx = document.getElementById('canvas').getContext('2d')
     const gradient = ctx.createLinearGradient(0, 0, 0, 400)
     gradient.addColorStop(0, '#0071C5')
@@ -29,10 +32,11 @@ const Chart = (props) => {
       labels: labels,
       datasets: [
         {
-          label: ' Score',
-          lineTension: 0.4,
+          // Data point radius is responsive.
           pointRadius: windowWidth / 180 > 8 ? 8 : windowWidth / 180,
           pointHoverRadius: windowWidth / 180 > 8 ? 8 : windowWidth / 180,
+
+          lineTension: 0.4,
           borderColor: '#0071C5',
           backgroundColor: gradient,
           pointBackgroundColor: '#0071C5',

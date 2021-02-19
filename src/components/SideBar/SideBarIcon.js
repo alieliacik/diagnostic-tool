@@ -34,6 +34,7 @@ const IconContainer = styled.div`
     background-color: #002d55;
   }
 
+  // last-child must have border-bottom.
   &:last-child {
     border-bottom: 1px solid #002d55;
   }

@@ -21,6 +21,7 @@ const Card = (props) => {
     dispatch(dataActions.selectCard(name))
   }
 
+  // Handles the first Card Animation.
   useEffect(() => {
     if (score < props.item.score) {
       scoreIntervalRef.current = setInterval(() => {

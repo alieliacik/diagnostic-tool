@@ -17,6 +17,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    // Fetchs data.
     case FETCH_DATA:
       return {
         ...state,
@@ -24,6 +25,7 @@ export default (state = initialState, action) => {
         areaData: action.areaData,
       }
 
+    // Selects the card, updates the Title, Card UI and shows user related Chart.
     case SELECT_CARD:
       const modifiedGaugeData = state.gaugeData.map((item) =>
         item.name === action.dataTitle
@@ -35,6 +37,8 @@ export default (state = initialState, action) => {
         gaugeData: modifiedGaugeData,
         dataTitle: action.dataTitle,
       }
+
+    // Filters Chart data. I needed to add some dummy data to your default data in order to do this.
     case FILTER_CHART_DATA:
       const modifiedAllButtons = state.allFilterButtons.map((btn) =>
         action.buttonName === btn.name

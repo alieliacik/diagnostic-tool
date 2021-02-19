@@ -90,7 +90,7 @@ const MainContent = () => {
       </Container>
       <SubTitle>
         <Container display='flex' alignItems='center'>
-          <AiOutlineGlobal size={30} color='black' />
+          <AiOutlineGlobal size={25} color='black' />
           <SubtitleText>Diagnostic Tool</SubtitleText>
           <SubtitleIconContainer>
             <AiFillPushpin color='black' size={20} />

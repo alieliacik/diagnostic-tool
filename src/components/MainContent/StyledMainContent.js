@@ -24,6 +24,7 @@ export const Container = styled.div`
   }
 `
 export const Title = styled.h1`
+  font-size: 1.6rem;
   font-weight: 300;
   margin: 2rem 0 1rem 0;
   color: #9c5455;
@@ -34,6 +35,7 @@ export const SubTitle = styled.div`
   padding: 0.8rem 0;
 `
 export const SubtitleText = styled.h3`
+  font-size: 1.2rem;
   font-weight: 300;
   font-size: 2rem;
   margin-left: 1rem;

@@ -72,6 +72,7 @@ const CardContainer = styled.div`
   align-self: flex-start;
   width: 10rem;
   margin-right: 2rem;
+  margin-bottom: 1.5rem;
   height: 16rem;
   padding: 2rem 1.2rem;
   border: 1px solid #ececec;
@@ -87,6 +88,12 @@ const CardContainer = styled.div`
     box-shadow: inset 0 3px 7px 0 rgba(0, 0, 0, 0.1);
   }
   animation: ${OpacityAnimation} 2s;
+
+  @media (max-width: 45em) {
+    margin-right: 1%;
+    width: 27vw;
+    height: 54vw;
+  }
 `
 const CardTitle = styled.h3`
   font-weight: 500;

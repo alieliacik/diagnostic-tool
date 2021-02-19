@@ -30,4 +30,8 @@ export const AppContainer = styled.div`
     'sidebar main';
   min-height: 100vh;
   color: #fff;
+
+  @media (max-width: 60em) {
+    grid-template-rows: 6rem 1fr;
+  }
 `

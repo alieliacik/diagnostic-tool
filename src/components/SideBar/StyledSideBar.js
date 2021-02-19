@@ -7,4 +7,8 @@ export const SideBarContainer = styled.div`
   background-color: #003c71;
   padding-top: 3.8rem;
   z-index: 2;
+
+  @media (max-width: 60em) {
+    padding-top: 5.8rem;
+  }
 `

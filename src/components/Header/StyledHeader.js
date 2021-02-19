@@ -9,6 +9,10 @@ export const HeaderContainer = styled.header`
   background-color: #0171c4;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.3);
   z-index: 1;
+
+  @media (max-width: 60em) {
+    flex-direction: column;
+  }
 `
 export const Logo = styled.h1`
   font-size: 1.8rem;

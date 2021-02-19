@@ -12,7 +12,9 @@ export const GlobalStyle = createGlobalStyle`
   html {
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
-    font-size: 62.5%;
+    font-size: 62.5%;  /* 1rem === 10px */
+
+    // Helps to make responsive desing easier with just one change.
     @media (max-width: 67.5em){
       font-size: 55%;         
     }

@@ -1,7 +1,9 @@
-import { FETCH_DATA } from '../actions/data'
+import { FETCH_DATA, SELECT_CARD } from '../actions/data'
 
 const initialState = {
-  data: [],
+  gaugeData: [],
+  areaData: [],
+  dataTitle: 'Quality Score',
 }
 
 export default (state = initialState, action) => {
@@ -9,7 +11,21 @@ export default (state = initialState, action) => {
     case FETCH_DATA:
       return {
         ...state,
-        data: action.data,
+        gaugeData: action.gaugeData,
+        areaData: action.areaData,
+      }
+
+    case SELECT_CARD:
+      const modifiedGaugeData = state.gaugeData.map((item) =>
+        item.name === action.dataTitle
+          ? { ...item, isSelected: true }
+          : { ...item, isSelected: false }
+      )
+
+      return {
+        ...state,
+        gaugeData: modifiedGaugeData,
+        dataTitle: action.dataTitle,
       }
     default:
       return state

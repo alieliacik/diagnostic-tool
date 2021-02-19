@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import {
   AiOutlineGlobal,
   AiFillInfoCircle,
@@ -8,6 +8,7 @@ import {
 } from 'react-icons/ai'
 
 import * as dataActions from '../../store/actions/data'
+import Card from '../StyledComponents/Card'
 
 const MainContentContainer = styled.main`
   grid-area: main;
@@ -46,9 +47,10 @@ const ContentContainer = styled.div`
   display: grid;
   grid-template-columns: 4.5fr 5.5fr;
   grid-template-rows: 1fr 4fr;
+  grid-gap: 2rem;
   grid-template-areas:
     'filter buttons'
-    'cars chart';
+    'cards chart';
   width: 100%;
 `
 const FiltersContainer = styled.div`
@@ -84,9 +86,14 @@ const FilterButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `
+const opacityAnimation = keyframes`
+  from {opacity: 0}
+  to {opacity: 1}
+`
 const ButtonsTitle = styled.h3`
   font-size: 1.8rem;
   font-weight: 300;
+  animation: ${opacityAnimation} 2s;
 `
 const Buttons = styled.div`
   display: flex;
@@ -120,10 +127,22 @@ const Button = styled.button`
     transform: none;
   }
 `
+const CardsContainer = styled.div`
+  grid-area: cards;
+  display: flex;
+  flex-wrap: wrap;
+`
+const ChartContainer = styled.div`
+  grid-area: chart;
+  animation: ${opacityAnimation} 2s;
+`
 const MainContent = () => {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState()
   const [error, setError] = useState()
+  const gaugeData = useSelector((state) => state.data.gaugeData)
+  const areaData = useSelector((state) => state.data.areaData)
+  const dataTitle = useSelector((state) => state.data.dataTitle)
   const [allButtons, setAllButtons] = useState([
     { id: 1, name: 'Day', isDisabled: true, isSelected: false },
     { id: 2, name: 'Week', isDisabled: false, isSelected: false },
@@ -150,7 +169,7 @@ const MainContent = () => {
       setError(error.message)
     }
     setIsLoading(false)
-  }, [setIsLoading, setError])
+  }, [dispatch, setIsLoading, setError])
 
   useEffect(() => {
     fetchDataHandler()
@@ -161,6 +180,13 @@ const MainContent = () => {
       alert(error)
     }
   }, [error])
+
+  if (isLoading) {
+    return <h1>Loading</h1>
+  }
+
+  const filteredAreaData = areaData.filter((item) => item.name === dataTitle)
+  console.log(filteredAreaData)
   return (
     <MainContentContainer>
       <Container>
@@ -193,7 +219,9 @@ const MainContent = () => {
             </FiltersBox>
           </FiltersContainer>
           <FilterButtonsContainer>
-            <ButtonsTitle>QUALITY SCORE TREND</ButtonsTitle>
+            <ButtonsTitle key={dataTitle}>
+              {dataTitle.toUpperCase()} TREND
+            </ButtonsTitle>
             <Buttons>
               {allButtons.map((btn) => (
                 <Button
@@ -207,6 +235,27 @@ const MainContent = () => {
               ))}
             </Buttons>
           </FilterButtonsContainer>
+          <CardsContainer>
+            {!!gaugeData &&
+              gaugeData.map((item) => (
+                <Card
+                  key={item.name}
+                  name={item.name}
+                  score={item.score}
+                  sample={item.sample}
+                  isSelected={item.isSelected}
+                />
+              ))}
+          </CardsContainer>
+          <ChartContainer key={dataTitle}>
+            {!!filteredAreaData.length &&
+              filteredAreaData[0].data.map((e) => (
+                <p>
+                  {e.score}
+                  {e.date}
+                </p>
+              ))}
+          </ChartContainer>
         </ContentContainer>
       </Container>
     </MainContentContainer>

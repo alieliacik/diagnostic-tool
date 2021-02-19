@@ -8,7 +8,7 @@ import {
 } from 'react-icons/ai'
 
 import * as dataActions from '../../store/actions/data'
-import Card from '../StyledComponents/Card'
+import Card from './Card'
 import Chart from './Chart'
 const MainContentContainer = styled.main`
   grid-area: main;
@@ -19,7 +19,7 @@ const MainContentContainer = styled.main`
   align-items: center;
 `
 const Container = styled.div`
-  width: 80%;
+  max-width: 100rem;
   margin: 0 auto;
   display: ${({ display }) => display};
   align-items: ${({ alignItems }) => alignItems};

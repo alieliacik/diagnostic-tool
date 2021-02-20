@@ -63,7 +63,7 @@ const Chart = (props) => {
         options={{
           layout: {
             padding: {
-              top: windowWidth > 720 ? 50 : 0,
+              top: 50,
             },
           },
           legend: {

@@ -5,7 +5,7 @@ const SideBarIcon = (props) => {
   const Icon = props.icon.name
   return (
     <IconContainer
-      // tabSelectHandler is a props which sends id to parent component
+      // tabSelectHandler is a props which sends id to parent component.
       onClick={() => props.tabSelectHandler(props.icon.id)}
       isSelected={props.icon.isSelected}
     >
